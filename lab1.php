@@ -19,18 +19,17 @@ if(isset($_POST['btn-save'])){
 }
 
 
-
-
 ?>
 <html>
-    <header>
+    <head>
         <title>Title goes here</title>
-    </header>
+        <script type = "text/javascript" src = "Validate.js"></script>
+    </head>
     <body>
-            <form method="post">
+            <form name="user_details" id = "user_details" method="post" onsubmit="return validateForm()" action="<?=$_SERVER['PHP_SELF']?>">
                 <table align="center">
                  <tr>
-                     <td><input type="text" name="first_name" required placeholder="First Name">
+                     <td><input type="text" name="first_name" placeholder="First Name"></td>
                  </tr>
                  <tr>
                  <td><input type="text" name="last_name" placeholder="Last Name"></td>
@@ -39,7 +38,7 @@ if(isset($_POST['btn-save'])){
                  <td><input type="text" name="city_name" placeholder="City"></td>
                  </tr>
                  <tr>
-                 <td><button type="submit" name="btn-save"><strong>SAVE</strong></button></td>
+                 <td><input type ="submit" name= "btn-save" value= "SAVE"></td>
                  </tr>
                 </table>
              </form>
