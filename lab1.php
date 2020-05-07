@@ -9,6 +9,11 @@ if(isset($_POST['btn-save'])){
     $city = $_POST['city_name'];
 
     $user = new User($first_name,$last_name,$city);
+    if(!$user->validateForm()){
+        $user->createFormErrorSessions();
+        header("Refresh:0");
+        die();
+    }
     $res = $user-> save();
      
     if($res){
@@ -23,9 +28,11 @@ if(isset($_POST['btn-save'])){
 
 ?>
 <html>
-    <header>
+    <head>
         <title>Title goes here</title>
-    </header>
+        <script type="text/javascript" src="Validate.js"></script>
+        <link rel ="stylesheet" type="text/css" href="validate.css"></link>
+    </head>
     <body>
             <form method="post">
                 <table align="center">
