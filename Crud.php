@@ -10,7 +10,7 @@ interface Crud{
 
     //Lab 2 methods
     public function validateForm();
-    public function createFormErrorSessions();
+    public function createFormErrorSessions($error);
 }
 
 

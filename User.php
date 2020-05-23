@@ -102,9 +102,9 @@ class User implements Crud,Authenticator{
         return true;
     }
 
-    public function createFormErrorSessions(){
+    public function createFormErrorSessions($error){
         session_start();
-        $_SESSION['form-errors'] = "All fields are required";
+        $_SESSION['form-errors'] = $error;
     }
 
     public function hashPassword(){
@@ -149,6 +149,20 @@ class User implements Crud,Authenticator{
         unset($_SESSION['username']);
         session_destroy();
         header("Location:lab1.php");
+    }
+
+    public function isUserExists(){
+        $conn = new DBConnector;
+        $exist = false;
+        $username = $this->getUsername();
+        $query = "SELECT username FROM users WHERE username='$username'";
+        $result = $conn->conn->query($query);
+        if($result->num_rows >=1){
+            $exist=true;
+        }
+        $conn ->conn->close();
+        return $exist;
+
     }
 }
 

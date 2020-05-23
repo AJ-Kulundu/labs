@@ -16,8 +16,13 @@ if(isset($_POST['btn-save'])){
         header("Refresh:0");
         die();
     }
+    if(!$user->isUserExists()){
     $res = $user-> save();
-     
+    }else{
+       $user->createFormErrorSessions("Username already Exists");
+       header("Refresh:0");
+       die();
+    }
     if($res){
         echo "Save was Successful";
         header("Location:login.php");
