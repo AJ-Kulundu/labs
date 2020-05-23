@@ -1,9 +1,8 @@
-
 <?php
 include "Crud.php";
-include "authenticator.php";
+include "Authenticator.php";
 
-class User implements Crud,authenticator{
+class User implements Crud,Authenticator{
     protected $user_id;
     protected $first_name;
     protected $last_name;
@@ -22,8 +21,10 @@ class User implements Crud,authenticator{
 
      // static constructor
      public static function create(){
-        $instance = new self();
-        return $instance;
+       // $instance = new self();
+       // return $instance;
+       $_reflection = new ReflectionClass(__CLASS__);
+        return $_reflection->newInstanceWithoutConstructor();
     }
    
     //username setter
@@ -54,10 +55,6 @@ class User implements Crud,authenticator{
     public function getUserId(){
         return $this->$user_id;
     }
-
-
-
-
 
     public function save(){
         $fn=$this->first_name;
@@ -116,25 +113,30 @@ class User implements Crud,authenticator{
     }
      
     public function isPasswordCorrect(){
-        $conn = new DBConnector;
-        $found = false;
-        $res = mysql_query("SELECT * FROM user") or die("Error" .mysql_error());
-
-        while($row=mysql_fetch_array($res)){
-            if($this->getUsername() == $row['username']  &&  password_verify($this->getPassword(),$row['password'])){
-                $found = true;
-            }
-        }
-        //close Database Connection
-        $con->closeDatabase();
-        //return true
-        return $found;  
+       $conn = new DBConnector;
+       $username = $this->getUsername();
+       $query = "SELECT * FROM users WHERE username = '$username'";
+       $result = $conn->conn->query($query);
+        if($result->num_rows > 0) {
+           while($row = $result->fetch_assoc()) {
+               if(password_verify($this->getPassword(), $row['password'])) {
+                   $_found = true;
+                   $this->username = row['username'];
+                   $this->first_name = row['first_name'];
+                   $this->last_name = row['last_name'];
+                   $this->city_name = row['user_city'];
+                   break;
+               }
+           }
+       }
+        $conn->conn->close();
+        return $result;
     }
 
     public function login(){
-        if($this->isPasswordCorrect()){
-            header("Location:private_page.php");
-        }
+        session_start(); 
+        $_SESSION['username'] = $this->getUsername();
+        header("Location:private_page.php");
     }
 
     public function createUserSessions(){
@@ -151,6 +153,3 @@ class User implements Crud,authenticator{
 }
 
 ?>
-
-
-

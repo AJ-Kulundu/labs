@@ -1,4 +1,3 @@
-
 <?php
 define('DB_SERVER','localhost');//local machine
 define('DB_USER','root');
@@ -16,11 +15,5 @@ class DBConnector{
         mysqli_close($this->conn);
     }
 }
-
-
-
-
-
-
 
 ?>
