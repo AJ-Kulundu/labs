@@ -1,14 +1,12 @@
-//we create a function to validate our form
-// we will call the function when the form is submitted
-
+//validating our form
 function validateForm(){
-    const fname = documents.user_details.first_name.value;
-    const lname = documents.user_details.last_name.value;
-    const city = documents.user_details.city_name.value;
-
-if(fname = null || lname == "" || city ==""){
-    alert("All user details are required");
+    var fname = document.forms["user_details"]["first_name"].value;
+    var lname = document.forms["user_details"]["first_name"].value;
+    var city = document.forms["user_details"]["city_name"].value;
+//the user details comes from our form
+if(fname == null || lname == "" || city == ""){
+    alert("all details required were not supplied");
     return false;
 }
-    
+return true;
 }

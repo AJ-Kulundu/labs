@@ -1,17 +1,17 @@
 <?php
-interface Crud{
-    public function save();
-    public function readAll();
-    public function readUnique();
-    public function search();
-    public function update();
-    public function removeOne();
-    public function removeAll(); 
+    interface Crud{
+        // All these methods have to be implemented by a class
+        // that implements these interfaces
+        public function save();
+        public function readAll();
+        public function readUnique();
+        public function search();
+        public function update();
+        public function removeOne();
+        public function removeAll();
 
-    //Lab 2 methods
-    public function validateForm();
-    public function createFormErrorSessions($error);
-}
-
+        public function validateForm();
+        public function createFormErrorSessions();
+    }
 
 ?>
