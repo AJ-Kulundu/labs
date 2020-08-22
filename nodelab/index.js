@@ -68,8 +68,8 @@ app.delete('/api/v1/student/:id',(req,res)=>{
 });
 
 //insert a student
-app.post('/submit',(req,res)=>{
-    var sql ="insert into student values(null,'"+ req.body.firstname +"','"+ req.body.lastname+"','"+ req.body.groupnumber+"')";
+app.post('/api/v1/student',(req,res)=>{
+    var sql ="insert into student values(null,'"+ req.body.first_name +"','"+ req.body.last_name+"','"+ Course +"')";
     mysqlconnection.query(sql,function(err,rows,fields){
         console.log(req.body);
   
